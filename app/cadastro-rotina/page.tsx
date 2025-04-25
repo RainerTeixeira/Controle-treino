@@ -52,7 +52,21 @@ export default function CadastroRotinaPage() {
         .select('rotina_id, dia_id, tempo_previsto, hora_preferencia, dias_semana(nome)')
         .eq('aluno_id', aluno_id)
         .order('dia_id');
-      if (!error && data) setRotinasAluno(data);
+      if (!error && data) {
+        setRotinasAluno(
+          data.map((item) => ({
+            ...item,
+            dias_semana:
+              Array.isArray(item.dias_semana) && item.dias_semana.length > 0
+                ? { nome: String(item.dias_semana[0].nome) }
+                : undefined,
+            rotina_id: Number(item.rotina_id),
+            dia_id: Number(item.dia_id),
+            tempo_previsto: Number(item.tempo_previsto),
+            hora_preferencia: String(item.hora_preferencia ?? ''),
+          }))
+        );
+      }
     }
   };
 
