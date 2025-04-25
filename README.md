@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Controle de Treino
 
-## Getting Started
+Este é um projeto [Next.js](https://nextjs.org) para controle de treinos, academias, alunos, objetivos e rotinas, utilizando Supabase como backend.
 
-First, run the development server:
+## Índice
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Visão Geral](#visão-geral)
+- [Funcionalidades](#funcionalidades)
+- [Pré-requisitos](#pré-requisitos)
+- [Configuração do Ambiente](#configuração-do-ambiente)
+- [Scripts Disponíveis](#scripts-disponíveis)
+- [Estrutura de Pastas](#estrutura-de-pastas)
+- [Variáveis de Ambiente](#variáveis-de-ambiente)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Como Contribuir](#como-contribuir)
+- [Licença](#licença)
+
+---
+
+## Visão Geral
+
+O Controle de Treino é uma aplicação web para gestão de treinos de alunos em academias. Permite cadastrar alunos, exercícios, objetivos, rotinas semanais e registrar resultados de treinos, tudo integrado ao Supabase.
+
+## Funcionalidades
+
+- Cadastro de alunos, exercícios, objetivos e rotinas semanais
+- Associação de exercícios a rotinas
+- Registro de resultados e acompanhamento de progresso
+- Visualização de treinos realizados e últimas avaliações
+- Interface moderna com React e TailwindCSS
+
+## Pré-requisitos
+
+- Node.js >= 18.x
+- npm, yarn, pnpm ou bun
+- Conta no [Supabase](https://supabase.com/) (ou use as chaves de exemplo)
+
+## Configuração do Ambiente
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/controle-treino.git
+   cd controle-treino
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   # ou
+   yarn
+   # ou
+   pnpm install
+   # ou
+   bun install
+   ```
+
+3. **Configure as variáveis de ambiente:**
+   - Copie `.env.local.example` para `.env.local` (se existir) ou edite `.env.local`:
+     ```
+     NEXT_PUBLIC_SUPABASE_URL=...
+     NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+     ```
+
+4. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   # ou yarn dev, pnpm dev, bun dev
+   ```
+
+5. Acesse [http://localhost:3000](http://localhost:3000) no navegador.
+
+## Scripts Disponíveis
+
+- `npm run dev` — Inicia o servidor de desenvolvimento com hot reload
+- `npm run build` — Gera a build de produção
+- `npm start` — Inicia o servidor em modo produção
+- `npm run lint` — Executa o linter
+
+## Estrutura de Pastas
+
+```
+app/
+  cadastro-aluno/         # Cadastro de alunos
+  cadastro-exercicio/     # Cadastro de exercícios
+  cadastro-objetivo/      # Cadastro de objetivos
+  cadastro-rotina/        # Cadastro de rotinas semanais
+  resultados/             # Visualização de resultados e treinos
+  components/             # Componentes reutilizáveis (UI)
+  globals.css             # Estilos globais
+  layout.tsx              # Layout principal
+  page.tsx                # Página inicial
+lib/
+  supabase.ts             # Instância/configuração do Supabase
+public/
+  ...                     # Imagens e arquivos estáticos
+.next/                    # Build do Next.js (ignorado no git)
+.vercel/                  # Configuração do Vercel (deploy)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variáveis de Ambiente
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `NEXT_PUBLIC_SUPABASE_URL` — URL do seu projeto Supabase
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Chave pública do Supabase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Essas variáveis devem estar no arquivo `.env.local` na raiz do projeto.
 
-## Learn More
+## Tecnologias Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/) — Framework React para aplicações web
+- [React](https://react.dev/) — Biblioteca de UI
+- [Supabase](https://supabase.com/) — Backend as a Service (autenticação, banco de dados, storage)
+- [TailwindCSS](https://tailwindcss.com/) — Utilitários de CSS
+- [TypeScript](https://www.typescriptlang.org/) — Tipagem estática para JavaScript
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Como Contribuir
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Faça um fork do projeto
+2. Crie uma branch (`git checkout -b feature/nome-da-feature`)
+3. Commit suas alterações (`git commit -m 'feat: minha contribuição'`)
+4. Push para o branch (`git push origin feature/nome-da-feature`)
+5. Abra um Pull Request
 
-## Deploy on Vercel
+## Licença
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Este projeto está sob a licença MIT.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Dúvidas? Abra uma issue ou entre em contato!
