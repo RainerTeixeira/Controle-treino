@@ -239,7 +239,7 @@ export default function ResultadosPage() {
               ? {
                   dia_id: Number(treino.rotinas_semanais[0].dia_id),
                   dias_semana:
-                    Array.isArray(treino.rotinas_semanais[0].dias_semana) && treino.rotinas_semanais[0].dias_semana.length > 0
+                    Array.isArray(treino.rotinas_semanais[0].dias_semana) && treinos.rotinas_semanais[0].dias_semana.length > 0
                       ? { nome: String(treino.rotinas_semanais[0].dias_semana[0].nome) }
                       : null,
                 }
@@ -250,7 +250,7 @@ export default function ResultadosPage() {
     }
 
     fetchAll();
-  }, [alunoId]);
+  }, [alunoId, treinos.rotinas_semanais]);
 
   if (!alunoId) {
     return (
@@ -394,7 +394,7 @@ export default function ResultadosPage() {
             </thead>
             <tbody>
               {treinos.map(treino => (
-                <tr key={treino.treino_id}></tr>
+                <tr key={treino.treino_id}>
                   <td className="p-2 border">{treino.data_hora_inicio ? new Date(treino.data_hora_inicio).toLocaleString() : '-'}</td>
                   <td className="p-2 border">{treino.data_hora_fim ? new Date(treino.data_hora_fim).toLocaleString() : '-'}</td>
                   <td className="p-2 border">{treino.rotinas_semanais?.dias_semana?.nome || '-'}</td>
