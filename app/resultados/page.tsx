@@ -1,12 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import Card from '../components/ui/Card';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
-export default function ResultadosPage() {
+export default function ResultadosPageWrapper() {
+  return (
+    <Suspense fallback={<div className="container mx-auto px-4 py-8 flex justify-center"><LoadingSpinner /></div>}>
+      <ResultadosPage />
+    </Suspense>
+  );
+}
+
+function ResultadosPage() {
   const searchParams = useSearchParams();
   const alunoId = searchParams.get('aluno');
 
@@ -239,7 +247,9 @@ export default function ResultadosPage() {
               ? {
                   dia_id: Number(treino.rotinas_semanais[0].dia_id),
                   dias_semana:
-                    Array.isArray(treino.rotinas_semanais[0].dias_semana) && treinos.rotinas_semanais[0].dias_semana.length > 0
+                    Array.isArray(treino.rotinas_semanais[0].dias_semana) &&
+                    treino.rotinas_semanais[0].dias_semana &&
+                    treino.rotinas_semanais[0].dias_semana.length > 0
                       ? { nome: String(treino.rotinas_semanais[0].dias_semana[0].nome) }
                       : null,
                 }
@@ -250,7 +260,7 @@ export default function ResultadosPage() {
     }
 
     fetchAll();
-  }, [alunoId, treinos.rotinas_semanais]);
+  }, [alunoId]);
 
   if (!alunoId) {
     return (
@@ -276,15 +286,15 @@ export default function ResultadosPage() {
       <Card>
         <h1 className="text-2xl font-bold mb-4">Dados do Aluno</h1>
         <div className="mb-4">
-          <strong>Nome:</strong> {aluno?.nome}<br />
-          <strong>Email:</strong> {aluno?.email || '-'}<br />
+          <strong>Nome:</strong> {String(aluno?.nome ?? '')}<br />
+          <strong>Email:</strong> {String(aluno?.email ?? '-') }<br />
           <strong>Peso:</strong> {aluno?.peso ? `${aluno.peso} kg` : '-'}<br />
           <strong>Altura:</strong> {aluno?.altura ? `${aluno.altura} m` : '-'}<br />
-          <strong>Data de Nascimento:</strong> {aluno?.data_nascimento ? new Date(aluno.data_nascimento).toLocaleDateString() : '-'}<br />
-          <strong>Data de Cadastro:</strong> {aluno?.data_cadastro ? new Date(aluno.data_cadastro).toLocaleDateString() : '-'}<br />
-          <strong>Academia:</strong> {academia?.nome || '-'}<br />
-          <strong>Localização:</strong> {academia?.localizacao || '-'}<br />
-          <strong>Objetivo:</strong> {objetivo?.descricao || '-'}
+          <strong>Data de Nascimento:</strong> {aluno?.data_nascimento ? new Date(aluno.data_nascimento as string).toLocaleDateString() : '-'}<br />
+          <strong>Data de Cadastro:</strong> {aluno?.data_cadastro ? new Date(aluno.data_cadastro as string).toLocaleDateString() : '-'}<br />
+          <strong>Academia:</strong> {String(academia?.nome ?? '-') }<br />
+          <strong>Localização:</strong> {String(academia?.localizacao ?? '-') }<br />
+          <strong>Objetivo:</strong> {String(objetivo?.descricao ?? '-') }
         </div>
       </Card>
 
@@ -304,12 +314,12 @@ export default function ResultadosPage() {
             </thead>
             <tbody>
               {resultados.map(r => (
-                <tr key={r.resultado_id}>
-                  <td className="p-2 border">{new Date(r.data_avaliacao).toLocaleDateString()}</td>
-                  <td className="p-2 border">{r.peso} kg</td>
-                  <td className="p-2 border">{r.altura} m</td>
-                  <td className="p-2 border">{r.percentual_gordura}%</td>
-                  <td className="p-2 border">{r.percentual_musculo}%</td>
+                <tr key={String(r.resultado_id)}>
+                  <td className="p-2 border">{new Date(r.data_avaliacao as string).toLocaleDateString()}</td>
+                  <td className="p-2 border">{r.peso !== undefined && r.peso !== null ? String(r.peso) + ' kg' : '-'}</td>
+                  <td className="p-2 border">{r.altura !== undefined && r.altura !== null ? String(r.altura) + ' m' : '-'}</td>
+                  <td className="p-2 border">{r.percentual_gordura !== undefined && r.percentual_gordura !== null ? String(r.percentual_gordura) + '%' : '-'}</td>
+                  <td className="p-2 border">{r.percentual_musculo !== undefined && r.percentual_musculo !== null ? String(r.percentual_musculo) + '%' : '-'}</td>
                 </tr>
               ))}
             </tbody>
