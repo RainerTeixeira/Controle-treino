@@ -23,7 +23,10 @@ async function cadastrarAluno(): Promise<unknown> {
 }
 
 export default function CadastroAlunoPage() {
-    const [state, formAction] = useFormState(cadastrarAluno, null as { error?: string; success?: boolean } | null);
+    const [state, formAction] = useFormState(
+        cadastrarAluno,
+        null as { error?: string; success?: boolean } | null
+    );
 
     const [academias, setAcademias] = useState<Academia[]>([]);
     const [objetivos, setObjetivos] = useState<Objetivo[]>([]);
@@ -158,11 +161,11 @@ export default function CadastroAlunoPage() {
                             </SubmitButton>
                         </div>
 
-                        {state?.error && (
+                        {state && 'error' in state && state.error && (
                             <p className="text-red-500 text-sm">{state.error}</p>
                         )}
 
-                        {state?.success && (
+                        {state && 'success' in state && state.success && (
                             <p className="text-green-600 text-sm">Aluno cadastrado com sucesso!</p>
                         )}
                     </form>
