@@ -192,7 +192,7 @@ export default function CadastroRotinaPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Cadastrar Rotina Semanal</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-8 tracking-tight">Cadastrar Rotina Semanal</h1>
         <Card>
           {/* Tabela de rotinas do aluno selecionado */}
           {!rotinaId && form.aluno_id && rotinasAluno.length > 0 && (
@@ -220,7 +220,7 @@ export default function CadastroRotinaPage() {
           )}
 
           {!rotinaId && (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <div>
                 <label htmlFor="aluno_id" className="block text-sm font-medium text-gray-700 mb-1">
                   Aluno
@@ -290,8 +290,10 @@ export default function CadastroRotinaPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-300 focus:border-green-300"
                 />
               </div>
-              <div className="pt-2">
-                <SubmitButton loading={loading}>Cadastrar Rotina</SubmitButton>
+              <div className="pt-4">
+                <SubmitButton loading={loading} className="transition-transform duration-150 hover:scale-105">
+                  Cadastrar Rotina
+                </SubmitButton>
               </div>
               {mensagem?.tipo === 'erro' && (
                 <p className="text-red-500 text-sm">{mensagem.texto}</p>

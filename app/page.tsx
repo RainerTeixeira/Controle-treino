@@ -34,24 +34,26 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <Card>
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-green-100 to-indigo-100 mb-4">
-              <UserGroupIcon className="h-8 w-8 text-green-600" />
+      <div className="max-w-3xl mx-auto">
+        <Card className="p-8 shadow-xl">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-green-100 to-indigo-100 mb-6">
+              <UserGroupIcon className="h-10 w-10 text-green-600" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            <h2 className="text-3xl font-bold text-gray-800 mb-3">
               Selecione um Aluno
             </h2>
-            <p className="text-gray-500">Escolha um aluno para visualizar o treino personalizado</p>
+            <p className="text-gray-600 text-lg">Escolha um aluno para visualizar o treino personalizado</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 flex flex-col gap-4">
-            {loading && <div>Carregando alunos....</div>}
-            {error && <div className="text-red-500">Erro ao carregar alunos: {error}</div>}
+
+          <div className="space-y-6">
+            {loading && <p className="text-center text-gray-500">Carregando alunos...</p>}
+            {error && <div className="text-red-600 text-center">Erro: {error}</div>}
+
             {!loading && !error && (
               <>
                 <select
-                  className="w-full p-3 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="w-full p-4 text-lg border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                   value={alunoSelecionado}
                   onChange={e => setAlunoSelecionado(e.target.value)}
                 >
@@ -62,12 +64,13 @@ export default function Home() {
                     </option>
                   ))}
                 </select>
+
                 <button
-                  className="w-full py-2 px-4 bg-gradient-to-r from-green-500 to-indigo-500 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                  className="w-full py-4 px-6 bg-gradient-to-r from-green-600 to-indigo-600 hover:from-green-700 hover:to-indigo-700 text-white text-lg font-semibold rounded-xl transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:grayscale disabled:hover:scale-100"
                   disabled={!alunoSelecionado}
                   onClick={handleVerResultados}
                 >
-                  Ver Resultados do Aluno
+                  Ver Resultados
                 </button>
               </>
             )}
