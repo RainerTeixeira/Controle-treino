@@ -161,11 +161,11 @@ export default function CadastroAlunoPage() {
                             </SubmitButton>
                         </div>
 
-                        {state && 'error' in state && state.error && (
+                        {state && 'error' in state && typeof state.error === 'string' && state.error && (
                             <p className="text-red-500 text-sm">{state.error}</p>
                         )}
 
-                        {state && 'success' in state && state.success && (
+                        {state && 'success' in state && !!state.success && (
                             <p className="text-green-600 text-sm">Aluno cadastrado com sucesso!</p>
                         )}
                     </form>
