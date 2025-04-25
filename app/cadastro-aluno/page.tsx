@@ -23,7 +23,7 @@ async function cadastrarAluno(): Promise<unknown> {
 }
 
 export default function CadastroAlunoPage() {
-    const [state, formAction] = useFormState(cadastrarAluno, null);
+    const [state, formAction] = useFormState(cadastrarAluno, null as { error?: string; success?: boolean } | null);
 
     const [academias, setAcademias] = useState<Academia[]>([]);
     const [objetivos, setObjetivos] = useState<Objetivo[]>([]);
