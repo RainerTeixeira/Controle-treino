@@ -41,6 +41,16 @@ export default function CadastroAlunoPage() {
         fetchData();
     }, []);
 
+    // Adicione estas linhas antes do return
+    let errorMessage: string | null = null;
+    if (state && 'error' in state && typeof state.error === 'string' && state.error) {
+        errorMessage = state.error;
+    }
+    let successMessage: string | null = null;
+    if (state && 'success' in state && !!state.success) {
+        successMessage = 'Aluno cadastrado com sucesso!';
+    }
+
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-2xl mx-auto">
@@ -161,12 +171,12 @@ export default function CadastroAlunoPage() {
                             </SubmitButton>
                         </div>
 
-                        {state && 'error' in state && typeof state.error === 'string' && state.error && (
-                            <p className="text-red-500 text-sm">{state.error as string}</p>
+                        {errorMessage && (
+                            <p className="text-red-500 text-sm">{errorMessage}</p>
                         )}
 
-                        {state && 'success' in state && !!state.success && (
-                            <p className="text-green-600 text-sm">Aluno cadastrado com sucesso!</p>
+                        {successMessage && (
+                            <p className="text-green-600 text-sm">{successMessage}</p>
                         )}
                     </form>
                 </Card>
