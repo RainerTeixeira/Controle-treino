@@ -128,7 +128,50 @@ export default function ResultadosPage() {
         .eq('aluno_id', alunoId)
         .order('dia_id', { ascending: true });
 
-      setRotinas(rotinasData || []);
+      setRotinas(
+        (rotinasData || []).map((rotina: any) => ({
+          ...rotina,
+          rotina_id: String(rotina.rotina_id),
+          dia_id: Number(rotina.dia_id),
+          tempo_previsto: rotina.tempo_previsto !== null ? Number(rotina.tempo_previsto) : null,
+          hora_preferencia: rotina.hora_preferencia ?? null,
+          dias_semana:
+            Array.isArray(rotina.dias_semana) && rotina.dias_semana.length > 0
+              ? { nome: String(rotina.dias_semana[0].nome) }
+              : null,
+          rotina_exercicios: Array.isArray(rotina.rotina_exercicios)
+            ? rotina.rotina_exercicios.map((ex: any) => ({
+                ...ex,
+                rotina_exercicio_id: String(ex.rotina_exercicio_id),
+                series: Number(ex.series),
+                repeticoes: Number(ex.repeticoes),
+                descanso: Number(ex.descanso),
+                ordem: Number(ex.ordem),
+                exercicios:
+                  Array.isArray(ex.exercicios) && ex.exercicios.length > 0
+                    ? {
+                        ...ex.exercicios[0],
+                        nome: String(ex.exercicios[0].nome),
+                        descricao: String(ex.exercicios[0].descricao),
+                        grupo_muscular: String(ex.exercicios[0].grupo_muscular),
+                        dificuldade: String(ex.exercicios[0].dificuldade),
+                        equipamento_id:
+                          ex.exercicios[0].equipamento_id !== null
+                            ? String(ex.exercicios[0].equipamento_id)
+                            : null,
+                        equipamentos:
+                          Array.isArray(ex.exercicios[0].equipamentos) && ex.exercicios[0].equipamentos.length > 0
+                            ? {
+                                nome: String(ex.exercicios[0].equipamentos[0].nome),
+                                tipo: String(ex.exercicios[0].equipamentos[0].tipo),
+                              }
+                            : null,
+                      }
+                    : null,
+              }))
+            : [],
+        }))
+      );
 
       // Buscar treinos realizados
       const { data: treinosData } = await supabase
