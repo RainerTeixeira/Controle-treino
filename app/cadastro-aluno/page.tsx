@@ -17,7 +17,7 @@ interface Objetivo {
 }
 
 // Função de cadastro local (exemplo, ajuste conforme sua action real)
-async function cadastrarAluno(): Promise<unknown> {
+async function cadastrarAluno(): Promise<{ error?: string; success?: boolean }> {
     // ...implemente a lógica de cadastro aqui ou importe de outro arquivo...
     return {};
 }
@@ -41,13 +41,25 @@ export default function CadastroAlunoPage() {
         fetchData();
     }, []);
 
-    // Adicione estas linhas antes do return
     let errorMessage: string | null = null;
-    if (state && 'error' in state && typeof state.error === 'string' && state.error) {
+    if (
+        state &&
+        typeof state === 'object' &&
+        state !== null &&
+        'error' in state &&
+        typeof state.error === 'string' &&
+        state.error
+    ) {
         errorMessage = state.error;
     }
     let successMessage: string | null = null;
-    if (state && 'success' in state && !!state.success) {
+    if (
+        state &&
+        typeof state === 'object' &&
+        state !== null &&
+        'success' in state &&
+        !!state.success
+    ) {
         successMessage = 'Aluno cadastrado com sucesso!';
     }
 
