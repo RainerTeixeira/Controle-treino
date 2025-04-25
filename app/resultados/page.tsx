@@ -124,6 +124,33 @@ export default function ResultadosPage() {
         }[] | null;
       };
 
+      const { data: rotinasData } = await supabase
+        .from('rotinas_semanais')
+        .select(`
+          rotina_id,
+          dia_id,
+          tempo_previsto,
+          hora_preferencia,
+          dias_semana (nome),
+          rotina_exercicios (
+            rotina_exercicio_id,
+            series,
+            repeticoes,
+            descanso,
+            ordem,
+            exercicios (
+              nome,
+              descricao,
+              grupo_muscular,
+              dificuldade,
+              equipamento_id,
+              equipamentos (nome, tipo)
+            )
+          )
+        `)
+        .eq('aluno_id', alunoId)
+        .order('dia_id', { ascending: true });
+
       setRotinas(
         (rotinasData || []).map((rotina: RawRotina) => ({
           ...rotina,
