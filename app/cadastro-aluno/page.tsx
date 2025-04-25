@@ -17,14 +17,13 @@ interface Objetivo {
 }
 
 // Função de cadastro local (exemplo, ajuste conforme sua action real)
-async function cadastrarAluno(prevState: unknown, formData: FormData): Promise<any> {
+async function cadastrarAluno(): Promise<unknown> {
     // ...implemente a lógica de cadastro aqui ou importe de outro arquivo...
     return {};
 }
 
 export default function CadastroAlunoPage() {
     const [state, formAction] = useFormState(cadastrarAluno, null);
-    const [loading, setLoading] = useState(false);
 
     const [academias, setAcademias] = useState<Academia[]>([]);
     const [objetivos, setObjetivos] = useState<Objetivo[]>([]);
@@ -154,7 +153,7 @@ export default function CadastroAlunoPage() {
                         </div>
 
                         <div className="pt-2">
-                            <SubmitButton loading={loading}>
+                            <SubmitButton loading={false}>
                                 Cadastrar Aluno
                             </SubmitButton>
                         </div>

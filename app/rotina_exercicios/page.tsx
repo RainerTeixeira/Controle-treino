@@ -6,8 +6,8 @@ import Card from '../components/ui/Card';
 import SubmitButton from '../components/ui/SubmitButton';
 
 export default function CadastroRotinaExercicioPage() {
-  const [rotinas, setRotinas] = useState<any[]>([]);
-  const [exercicios, setExercicios] = useState<any[]>([]);
+  const [rotinas, setRotinas] = useState<{ rotina_id: number; aluno_id: number; dia_id: number }[]>([]);
+  const [exercicios, setExercicios] = useState<{ exercicio_id: number; nome: string }[]>([]);
   const [form, setForm] = useState({
     rotina_id: '',
     exercicio_id: '',

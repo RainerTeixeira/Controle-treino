@@ -8,7 +8,7 @@ import Card from './components/ui/Card';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const [alunos, setAlunos] = useState<any[]>([]);
+  const [alunos, setAlunos] = useState<{ aluno_id: number; nome: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [alunoSelecionado, setAlunoSelecionado] = useState<string>('');

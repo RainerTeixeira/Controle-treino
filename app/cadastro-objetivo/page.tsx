@@ -9,7 +9,7 @@ export default function CadastroObjetivoPage() {
   const [descricao, setDescricao] = useState('');
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState<{ tipo: 'erro' | 'sucesso'; texto: string } | null>(null);
-  const [objetivos, setObjetivos] = useState<any[]>([]);
+  const [objetivos, setObjetivos] = useState<{ objetivo_id: number; descricao: string }[]>([]);
 
   useEffect(() => {
     async function fetchObjetivos() {

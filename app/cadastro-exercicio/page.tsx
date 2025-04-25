@@ -8,7 +8,7 @@ import SubmitButton from '../components/ui/SubmitButton';
 const dificuldades = ['Iniciante', 'Intermediário', 'Avançado'];
 
 export default function CadastroExercicioPage() {
-  const [equipamentos, setEquipamentos] = useState<any[]>([]);
+  const [equipamentos, setEquipamentos] = useState<{ equipamento_id: number; nome: string }[]>([]);
   const [form, setForm] = useState({
     nome: '',
     descricao: '',

@@ -10,12 +10,46 @@ export default function ResultadosPage() {
   const searchParams = useSearchParams();
   const alunoId = searchParams.get('aluno');
 
-  const [aluno, setAluno] = useState<any>(null);
-  const [academia, setAcademia] = useState<any>(null);
-  const [objetivo, setObjetivo] = useState<any>(null);
-  const [resultados, setResultados] = useState<any[]>([]);
-  const [rotinas, setRotinas] = useState<any[]>([]);
-  const [treinos, setTreinos] = useState<any[]>([]);
+  const [aluno, setAluno] = useState<Record<string, unknown> | null>(null);
+  const [academia, setAcademia] = useState<Record<string, unknown> | null>(null);
+  const [objetivo, setObjetivo] = useState<Record<string, unknown> | null>(null);
+  const [resultados, setResultados] = useState<Record<string, unknown>[]>([]);
+  const [rotinas, setRotinas] = useState<Array<{
+    rotina_id: string;
+    dia_id: number;
+    tempo_previsto: number | null;
+    hora_preferencia: string | null;
+    dias_semana: { nome: string } | null;
+    rotina_exercicios: Array<{
+      rotina_exercicio_id: string;
+      series: number;
+      repeticoes: number;
+      descanso: number;
+      ordem: number;
+      exercicios: {
+        nome: string;
+        descricao: string;
+        grupo_muscular: string;
+        dificuldade: string;
+        equipamento_id: string | null;
+        equipamentos: { nome: string; tipo: string } | null;
+      } | null;
+    }>;
+  }>>([]);
+  const [treinos, setTreinos] = useState<Array<{
+    treino_id: string;
+    rotina_id: string;
+    data_hora_inicio: string | null;
+    data_hora_fim: string | null;
+    satisfacao: number | null;
+    observacoes: string | null;
+    rotinas_semanais: {
+      dia_id: number;
+      dias_semana: {
+        nome: string;
+      } | null;
+    } | null;
+  }>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -213,8 +247,22 @@ export default function ResultadosPage() {
                 </thead>
                 <tbody>
                   {rotina.rotina_exercicios
-                    .sort((a: any, b: any) => a.ordem - b.ordem)
-                    .map((ex: any) => (
+                    .sort((a: { ordem: number }, b: { ordem: number }) => a.ordem - b.ordem)
+                    .map((ex: {
+                      rotina_exercicio_id: string;
+                      series: number;
+                      repeticoes: number;
+                      descanso: number;
+                      ordem: number;
+                      exercicios: {
+                        nome: string;
+                        descricao: string;
+                        grupo_muscular: string;
+                        dificuldade: string;
+                        equipamento_id: string | null;
+                        equipamentos: { nome: string; tipo: string } | null;
+                      } | null;
+                    }) => (
                       <tr key={ex.rotina_exercicio_id}>
                         <td className="p-2 border">{ex.ordem}</td>
                         <td className="p-2 border">{ex.exercicios?.nome}</td>

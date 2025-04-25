@@ -5,12 +5,10 @@ import { supabase } from '../../lib/supabase';
 import Card from '../components/ui/Card';
 import SubmitButton from '../components/ui/SubmitButton';
 
-const dificuldades = ['Iniciante', 'Intermediário', 'Avançado'];
-
 export default function CadastroRotinaPage() {
-  const [alunos, setAlunos] = useState<any[]>([]);
-  const [dias, setDias] = useState<any[]>([]);
-  const [exercicios, setExercicios] = useState<any[]>([]);
+  const [alunos, setAlunos] = useState<{ aluno_id: number; nome: string }[]>([]);
+  const [dias, setDias] = useState<{ dia_id: number; nome: string }[]>([]);
+  const [exercicios, setExercicios] = useState<{ exercicio_id: number; nome: string }[]>([]);
   const [form, setForm] = useState({
     aluno_id: '',
     dia_id: '',
@@ -25,8 +23,8 @@ export default function CadastroRotinaPage() {
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState<{ tipo: 'erro' | 'sucesso'; texto: string } | null>(null);
   const [rotinaId, setRotinaId] = useState<number | null>(null);
-  const [exerciciosDaRotina, setExerciciosDaRotina] = useState<any[]>([]);
-  const [rotinasAluno, setRotinasAluno] = useState<any[]>([]);
+  const [exerciciosDaRotina, setExerciciosDaRotina] = useState<{ rotina_exercicio_id: number; exercicios: { nome: string }; series: number; repeticoes: number; descanso: number; ordem: number }[]>([]);
+  const [rotinasAluno, setRotinasAluno] = useState<{ rotina_id: number; dia_id: number; tempo_previsto: number; hora_preferencia: string; dias_semana?: { nome: string } }[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -383,7 +381,7 @@ export default function CadastroRotinaPage() {
                 <div className="mt-4">
                   <h3 className="font-semibold mb-2">Exercícios cadastrados nesta rotina:</h3>
                   <ul className="list-disc pl-5">
-                    {exerciciosDaRotina.map((ex, idx) => (
+                    {exerciciosDaRotina.map((ex) => (
                       <li key={ex.rotina_exercicio_id}>
                         {ex.exercicios?.nome || 'Exercício'} - {ex.series}x{ex.repeticoes} ({ex.descanso}s) Ordem: {ex.ordem}
                       </li>
