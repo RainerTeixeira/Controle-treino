@@ -101,56 +101,31 @@ export default function ResultadosPage() {
       setResultados(res || []);
 
       // Buscar rotinas semanais e exercícios
-      const { data: rotinasData } = await supabase
-        .from('rotinas_semanais')
-        .select(`
-          rotina_id,
-          dia_id,
-          tempo_previsto,
-          hora_preferencia,
-          dias_semana (nome),
-          rotina_exercicios (
-            rotina_exercicio_id,
-            series,
-            repeticoes,
-            descanso,
-            ordem,
-            exercicios (
-              nome,
-              descricao,
-              grupo_muscular,
-              dificuldade,
-              equipamento_id,
-              equipamentos (nome, tipo)
-            )
-          )
-        `)
-        .eq('aluno_id', alunoId)
-        .order('dia_id', { ascending: true });
+      type RawRotina = {
+        rotina_id: string | number;
+        dia_id: string | number;
+        tempo_previsto: number | string | null;
+        hora_preferencia: string | null;
+        dias_semana: { nome: string }[] | null;
+        rotina_exercicios: {
+          rotina_exercicio_id: string | number;
+          series: number | string;
+          repeticoes: number | string;
+          descanso: number | string;
+          ordem: number | string;
+          exercicios: {
+            nome: string;
+            descricao: string;
+            grupo_muscular: string;
+            dificuldade: string;
+            equipamento_id: string | number | null;
+            equipamentos: { nome: string; tipo: string }[] | null;
+          }[] | null;
+        }[] | null;
+      };
 
       setRotinas(
-        (rotinasData || []).map((rotina: {
-          rotina_id: string;
-          dia_id: number;
-          tempo_previsto: number | null;
-          hora_preferencia: string | null;
-          dias_semana: { nome: string } | null;
-          rotina_exercicios: Array<{
-            rotina_exercicio_id: string;
-            series: number;
-            repeticoes: number;
-            descanso: number;
-            ordem: number;
-            exercicios: {
-              nome: string;
-              descricao: string;
-              grupo_muscular: string;
-              dificuldade: string;
-              equipamento_id: string | null;
-              equipamentos: { nome: string; tipo: string } | null;
-            } | null;
-          }>;
-        }) => ({
+        (rotinasData || []).map((rotina: RawRotina) => ({
           ...rotina,
           rotina_id: String(rotina.rotina_id),
           dia_id: Number(rotina.dia_id),
@@ -161,21 +136,7 @@ export default function ResultadosPage() {
               ? { nome: String(rotina.dias_semana[0].nome) }
               : null,
           rotina_exercicios: Array.isArray(rotina.rotina_exercicios)
-            ? rotina.rotina_exercicios.map((ex: {
-                rotina_exercicio_id: string;
-                series: number;
-                repeticoes: number;
-                descanso: number;
-                ordem: number;
-                exercicios: {
-                  nome: string;
-                  descricao: string;
-                  grupo_muscular: string;
-                  dificuldade: string;
-                  equipamento_id: string | null;
-                  equipamentos: { nome: string; tipo: string } | null;
-                } | null;
-              }) => ({
+            ? rotina.rotina_exercicios.map((ex) => ({
                 ...ex,
                 rotina_exercicio_id: String(ex.rotina_exercicio_id),
                 series: Number(ex.series),
