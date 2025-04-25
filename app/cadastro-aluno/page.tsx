@@ -162,7 +162,7 @@ export default function CadastroAlunoPage() {
                         </div>
 
                         {state && 'error' in state && typeof state.error === 'string' && state.error && (
-                            <p className="text-red-500 text-sm">{state.error}</p>
+                            <p className="text-red-500 text-sm">{state.error as string}</p>
                         )}
 
                         {state && 'success' in state && !!state.success && (
