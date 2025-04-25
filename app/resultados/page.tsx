@@ -129,7 +129,28 @@ export default function ResultadosPage() {
         .order('dia_id', { ascending: true });
 
       setRotinas(
-        (rotinasData || []).map((rotina: any) => ({
+        (rotinasData || []).map((rotina: {
+          rotina_id: string;
+          dia_id: number;
+          tempo_previsto: number | null;
+          hora_preferencia: string | null;
+          dias_semana: { nome: string } | null;
+          rotina_exercicios: Array<{
+            rotina_exercicio_id: string;
+            series: number;
+            repeticoes: number;
+            descanso: number;
+            ordem: number;
+            exercicios: {
+              nome: string;
+              descricao: string;
+              grupo_muscular: string;
+              dificuldade: string;
+              equipamento_id: string | null;
+              equipamentos: { nome: string; tipo: string } | null;
+            } | null;
+          }>;
+        }) => ({
           ...rotina,
           rotina_id: String(rotina.rotina_id),
           dia_id: Number(rotina.dia_id),
@@ -140,7 +161,21 @@ export default function ResultadosPage() {
               ? { nome: String(rotina.dias_semana[0].nome) }
               : null,
           rotina_exercicios: Array.isArray(rotina.rotina_exercicios)
-            ? rotina.rotina_exercicios.map((ex: any) => ({
+            ? rotina.rotina_exercicios.map((ex: {
+                rotina_exercicio_id: string;
+                series: number;
+                repeticoes: number;
+                descanso: number;
+                ordem: number;
+                exercicios: {
+                  nome: string;
+                  descricao: string;
+                  grupo_muscular: string;
+                  dificuldade: string;
+                  equipamento_id: string | null;
+                  equipamentos: { nome: string; tipo: string } | null;
+                } | null;
+              }) => ({
                 ...ex,
                 rotina_exercicio_id: String(ex.rotina_exercicio_id),
                 series: Number(ex.series),
