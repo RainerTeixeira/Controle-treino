@@ -1,12 +1,18 @@
-import React from 'react';
-
-const Header = () => (
-  <header className="text-center py-10 bg-gradient-to-r from-green-200 via-indigo-100 to-blue-100 shadow-lg rounded-b-3xl mb-8">
-    <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-indigo-500 to-blue-600 drop-shadow-lg">
-      Sistema Academia
-    </h1>
-    <p className="text-gray-500 mt-3 text-xl font-medium">Gerencie treinos e alunos com facilidade.</p>
-  </header>
-);
+const Header = () => {
+  return (
+    <header className="w-full py-8 px-8 bg-gradient-to-r from-green-500 to-indigo-500 text-white text-center shadow-lg">
+      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight drop-shadow mb-2">
+        FitControl - Sistema de Gestão de Academia
+      </h1>
+      <h2 className="text-lg md:text-xl font-semibold mt-2 mb-1">
+        Bem-vindo ao FitControl
+      </h2>
+      <p className="text-base md:text-lg font-normal max-w-2xl mx-auto">
+        Gerencie suas rotinas de treino de forma simples e eficiente.<br />
+        Selecione um aluno para visualizar ou editar as rotinas semanais.
+      </p>
+    </header>
+  );
+};
 
 export default Header;

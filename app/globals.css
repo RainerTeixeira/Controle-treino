@@ -1,83 +1,60 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+/* app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #f7fafd;
-  --foreground: #23272f;
-  --primary: #4ade80; /* verde suave */
-  --primary-dark: #16a34a;
-  --accent: #6366f1; /* lilás */
-  --accent-light: #a5b4fc;
-  --card-bg: #fff;
-  --card-border: #e5e7eb;
-  --shadow: 0 4px 24px 0 rgba(80, 120, 180, 0.07);
-  --radius: 18px;
-  --font-sans: 'Inter', 'Segoe UI', Arial, sans-serif;
-  --font-mono: 'Fira Mono', 'Menlo', monospace;
+  --foreground-rgb: 51, 65, 85;
+  --background-rgb: 248, 250, 252;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #181a20;
-    --foreground: #f3f4f6;
-    --card-bg: #23272f;
-    --card-border: #2d3340;
-    --shadow: 0 4px 24px 0 rgba(80, 120, 180, 0.12);
+    --foreground-rgb: 226, 232, 240;
+    --background-rgb: 15, 23, 42;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  transition: background 0.3s, color 0.3s;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Inter', sans-serif;
 }
 
-h1, h2, h3 {
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  letter-spacing: -0.5px;
-}
-
-button, select, input {
-  border-radius: var(--radius);
-  transition: all 180ms cubic-bezier(.4,0,.2,1);
-  outline: none;
-}
-
-button {
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  color: #fff;
-  font-weight: 600;
-  box-shadow: var(--shadow);
-  border: none;
-}
-
-button:hover, button:focus {
-  filter: brightness(0.95);
-  box-shadow: 0 6px 28px 0 rgba(80, 120, 180, 0.13);
-}
-
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.5rem;
-  transition: box-shadow 0.2s;
-}
-
-.card:hover {
-  box-shadow: 0 8px 32px 0 rgba(80, 120, 180, 0.16);
-}
-
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--card-border);
-  border-radius: 8px;
+  height: 8px;
 }
 
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
