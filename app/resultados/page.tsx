@@ -197,6 +197,16 @@ export default function ResultadosPage() {
       );
 
       // Buscar treinos realizados
+      type RawTreino = {
+        treino_id: string | number;
+        rotina_id: string | number;
+        data_hora_inicio: string | null;
+        data_hora_fim: string | null;
+        satisfacao: number | null;
+        observacoes: string | null;
+        rotinas_semanais: { dia_id: number | string; dias_semana: { nome: string }[] }[] | null;
+      };
+
       const { data: treinosData } = await supabase
         .from('treinos')
         .select(`
@@ -215,7 +225,27 @@ export default function ResultadosPage() {
         .order('data_hora_inicio', { ascending: false })
         .limit(5);
 
-      setTreinos(treinosData || []);
+      setTreinos(
+        (treinosData || []).map((treino: RawTreino) => ({
+          ...treino,
+          treino_id: String(treino.treino_id),
+          rotina_id: String(treino.rotina_id),
+          data_hora_inicio: treino.data_hora_inicio ?? null,
+          data_hora_fim: treino.data_hora_fim ?? null,
+          satisfacao: treino.satisfacao !== null ? Number(treino.satisfacao) : null,
+          observacoes: treino.observacoes ?? null,
+          rotinas_semanais:
+            Array.isArray(treino.rotinas_semanais) && treino.rotinas_semanais.length > 0
+              ? {
+                  dia_id: Number(treino.rotinas_semanais[0].dia_id),
+                  dias_semana:
+                    Array.isArray(treino.rotinas_semanais[0].dias_semana) && treino.rotinas_semanais[0].dias_semana.length > 0
+                      ? { nome: String(treino.rotinas_semanais[0].dias_semana[0].nome) }
+                      : null,
+                }
+              : null,
+        }))
+      );
       setLoading(false);
     }
 
@@ -364,7 +394,7 @@ export default function ResultadosPage() {
             </thead>
             <tbody>
               {treinos.map(treino => (
-                <tr key={treino.treino_id}>
+                <tr key={treino.treino_id}></tr>
                   <td className="p-2 border">{treino.data_hora_inicio ? new Date(treino.data_hora_inicio).toLocaleString() : '-'}</td>
                   <td className="p-2 border">{treino.data_hora_fim ? new Date(treino.data_hora_fim).toLocaleString() : '-'}</td>
                   <td className="p-2 border">{treino.rotinas_semanais?.dias_semana?.nome || '-'}</td>
