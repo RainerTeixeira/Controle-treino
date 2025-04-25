@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 export const metadata = {
   title: 'Sistema Academia',
@@ -12,10 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className="bg-gray-50 font-sans">
+      <body className="bg-gradient-to-br from-green-50 via-white to-indigo-50 min-h-screen font-sans flex flex-col">
         <Navbar />
-        {children}
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
+}
 }

@@ -49,25 +49,25 @@ export default function Home() {
   return (
     <BasePage>
       <Header />
-      <section className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 mt-12 border border-green-100">
-        <div className="flex flex-col items-center mb-6">
-          <span className="text-5xl mb-2">🏋️‍♂️</span>
-          <h2 className="text-3xl font-bold text-green-700 mb-1 flex items-center gap-2">
-            <UserGroupIcon className="w-8 h-8 text-green-500" />
+      <section className="w-full max-w-md card mx-auto mt-14">
+        <div className="flex flex-col items-center mb-7">
+          <span className="text-6xl mb-3">🏋️‍♂️</span>
+          <h2 className="text-3xl font-extrabold text-green-700 mb-2 flex items-center gap-2">
+            <UserGroupIcon className="w-9 h-9 text-green-500" />
             Selecione um Aluno
           </h2>
-          <p className="text-gray-500 text-base">Escolha para visualizar o treino personalizado</p>
+          <p className="text-gray-400 text-base">Escolha para visualizar o treino personalizado</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {loading ? (
             <div className="flex justify-center">
-              <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-10 h-10 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
             <select
               value={alunoId}
               onChange={e => setAlunoId(e.target.value)}
-              className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 bg-green-50 text-green-900 font-medium transition"
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-300 bg-white text-gray-800 font-semibold shadow-sm transition"
             >
               <option value="" disabled>
                 👤 Selecione um aluno
@@ -83,13 +83,13 @@ export default function Home() {
           <button
             type="submit"
             disabled={loading || !alunoId}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold rounded-lg hover:from-green-600 hover:to-green-800 transition disabled:opacity-50 text-lg shadow"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-400 via-indigo-400 to-blue-400 text-white font-bold rounded-xl hover:from-green-500 hover:to-indigo-500 transition disabled:opacity-50 text-lg shadow-lg"
           >
             Ver Treino
             <ArrowRightCircleIcon className="w-6 h-6" />
           </button>
 
-          {erro && <p className="text-red-600 text-sm text-center">{erro}</p>}
+          {erro && <p className="text-red-500 text-sm text-center">{erro}</p>}
         </form>
       </section>
     </BasePage>
