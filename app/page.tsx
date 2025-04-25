@@ -46,7 +46,7 @@ export default function Home() {
             <p className="text-gray-500">Escolha um aluno para visualizar o treino personalizado</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 flex flex-col gap-4">
-            {loading && <div>Carregando alunos...</div>}
+            {loading && <div>Carregando alunos....</div>}
             {error && <div className="text-red-500">Erro ao carregar alunos: {error}</div>}
             {!loading && !error && (
               <>
