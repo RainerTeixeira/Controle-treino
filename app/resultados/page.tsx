@@ -75,7 +75,7 @@ function ResultadosPage() {
 
       setAluno(alunoData);
 
-      // Buscar academia
+      // Buscar academia 
       if (alunoData?.academia_id) {
         const { data: acad } = await supabase
           .from('academias')
